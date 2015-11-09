@@ -34,7 +34,7 @@ function createStatus( statusProperties, updateCb, wait ){
   }
 
   function sendUpdate(){
-    this.updateCb( this.updated );
+    this.updateCb( { updated: this.updated, values: this.values } );
     
     this.updated = {};
     delete this.timeout;
