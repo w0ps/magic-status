@@ -2,7 +2,7 @@ function createStatus( statusProperties, updateCb, wait ){
   var internals = {
     updateCb: updateCb,
     sendUpdate: sendUpdate,
-    updated: [],
+    updated: {},
     wait: wait || 500,
     api: {},
     values: {}
