@@ -1,4 +1,5 @@
 magic-status
+[![Build Status](https://travis-ci.org/w0ps/magic-status.svg?branch=master)](https://travis-ci.org/w0ps/magic-status)
 
 an automatic status object.
 First you define properties with default values,
