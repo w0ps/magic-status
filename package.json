@@ -1,6 +1,6 @@
 {
   "name": "magic-status",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "a status object with getter/setter properties",
   "main": "index.js",
   "scripts": {

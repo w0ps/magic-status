@@ -4,7 +4,7 @@ var assert = require('assert'),
 
 describe('magicStatus', function() {
   describe('creates a status object with properties passed', function () {
-    it('should create a status object', function (done) {
+    it('should create a status object that calls callback with updates in a throttled manner', function (done) {
       var updateCalledTimes = 0,
           previousTime,
           delay = 100;
@@ -23,6 +23,7 @@ describe('magicStatus', function() {
 
       function onUpdate( status ){
         updateCalledTimes++;
+
         var updatedKeys = Object.keys( status.updated );
 
         if(updateCalledTimes === 1){
@@ -44,7 +45,7 @@ describe('magicStatus', function() {
         assert.equal( status.updated.baz, 9);
         assert.equal( status.values.baz, 9 );
         assert.equal( status.updated.foo, 'boo' );
-console.log( Date.now() - previousTime, delay );
+
         assert.equal( Date.now() - previousTime >= delay * 0.8, true );
         done();
       }

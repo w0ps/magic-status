@@ -30,19 +30,13 @@ function createStatus( statusProperties, updateCb, wait ){
 
   function setValue( key, value ){
     var now = Date.now(),
-        restDelay;
+        delay;
 
     this.values[ key ] = value;
     this.updated[ key ] = value;
 
     if( !this.timeOut ){
-      if( !this.lastUpdate || now - this.lastUpdate > this.wait ){
-        this.sendUpdate();
-      }
-      else {
-        restDelay = Math.max( 0, wait - ( now - this.lastUpdate ) );
-        this.timeOut = setTimeout( this.sendUpdate.bind( this ), restDelay );
-      }
+      this.timeOut = setTimeout( this.sendUpdate.bind( this ), this.wait );
     }
   }
 
@@ -52,10 +46,10 @@ function createStatus( statusProperties, updateCb, wait ){
     var status = { updated: this.updated, values: this.values };
     
     this.updated = {};
+    delete this.timeOut;
 
     this.updateCb( status );
     
-    delete this.timeOut;
   }
 
 }
