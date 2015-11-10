@@ -4,8 +4,11 @@
   "description": "a status object with getter/setter properties",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "= <=> (=)",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^2.3.3"
+  }
 }

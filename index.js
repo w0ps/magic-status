@@ -4,6 +4,7 @@ function createStatus( statusProperties, updateCb, wait ){
     sendUpdate: sendUpdate,
     updated: {},
     wait: wait || 500,
+    lastUpdate: undefined,
     api: {},
     values: {}
   };
@@ -28,16 +29,33 @@ function createStatus( statusProperties, updateCb, wait ){
   }
 
   function setValue( key, value ){
+    var now = Date.now(),
+        restDelay;
+
     this.values[ key ] = value;
     this.updated[ key ] = value;
-    if( !this.timeout ) setTimeout( this.sendUpdate.bind( this ), this.wait );
+
+    if( !this.timeOut ){
+      if( !this.lastUpdate || now - this.lastUpdate > this.wait ){
+        this.sendUpdate();
+      }
+      else {
+        restDelay = Math.max( 0, wait - ( now - this.lastUpdate ) );
+        this.timeOut = setTimeout( this.sendUpdate.bind( this ), restDelay );
+      }
+    }
   }
 
   function sendUpdate(){
-    this.updateCb( { updated: this.updated, values: this.values } );
+    this.lastUpdate = Date.now();
+
+    var status = { updated: this.updated, values: this.values };
     
     this.updated = {};
-    delete this.timeout;
+
+    this.updateCb( status );
+    
+    delete this.timeOut;
   }
 
 }
